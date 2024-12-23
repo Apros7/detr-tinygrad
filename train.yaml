@@ -1,0 +1,57 @@
+training:
+  lr: 1e-4
+  lr_backbone: 1e-5
+  batch_size: 2
+  weight_decay: 1e-4
+  epochs: 300
+  lr_drop: 200
+  clip_max_norm: 0.1
+
+model:
+  frozen_weights: null
+  backbone:
+    type: resnet50
+    dilation: false
+    position_embedding: sine
+  transformer:
+    enc_layers: 6
+    dec_layers: 6
+    dim_feedforward: 2048
+    hidden_dim: 256
+    dropout: 0.1
+    nheads: 8
+    num_queries: 100
+    pre_norm: false
+  masks: false
+  aux_loss: true
+
+loss:
+  matcher:
+    set_cost_class: 1
+    set_cost_bbox: 5
+    set_cost_giou: 2
+  coefficients:
+    mask: 1
+    dice: 1
+    bbox: 5
+    giou: 2
+    eos: 0.1
+
+dataset:
+  type: coco
+  coco_path: null
+  coco_panoptic_path: null
+  remove_difficult: false
+
+runtime:
+  output_dir: ""
+  device: cuda
+  seed: 42
+  resume: ""
+  start_epoch: 0
+  eval: false
+  num_workers: 2
+
+distributed:
+  world_size: 1
+  dist_url: env://
