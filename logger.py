@@ -18,6 +18,7 @@ class DetrLogger():
         seconds_since_start = str(datetime.timedelta(seconds=int(time.time() - self.start_time)))
         self.memory[key].append((seconds_since_start, str(x_value), str(y_value)))
 
+    def info_no_save(self, msg): self.logger.info(msg)
     def warning(self, msg): self.logger.warning(msg)
     def error(self, msg): self.logger.error(msg)
 
